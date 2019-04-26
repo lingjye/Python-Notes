@@ -24,3 +24,9 @@ print(href_prefix)
 s3 = ' sfdasf '
 print(s3)
 print(s3.strip())
+print(s3)
+
+s4 = 'http://sfdasf/'
+print(s4)
+print(s4.strip('/'))
+print(s4)
