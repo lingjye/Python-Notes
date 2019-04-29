@@ -55,3 +55,54 @@ url = 'http://www.79.com/sdafsa/sadasd'
 regx = r'%s/[a-z]+/[a-z]+$' % (href_prefix)
 find = re.findall(regx, url)
 print(find)
+
+url = 'http://www.79.com/web/Sdafsa/sadasd/index.html,' \
+	  'http://www.79.com/pro/sdaf_sa/sadasd/index.html,' \
+	  'http://www.79.com/sdafsa/sadasd/index.html,' \
+	  'http://www.79.com/sdafsa/sadasd' \
+	  'http://www.79.com/sdafsa/index.html'
+regx = r'%s/web/[a-z]+/[a-z]+/index.html|%s/pro/[a-z]+/[a-z]+/index.html' % (href_prefix, href_prefix)
+# 忽略大小写
+find = re.findall(regx, url, re.I)
+print(find)
+
+regx = r'%s/[web|pro+/[a-z_]+/[a-z]+/index.html' % (href_prefix)
+find = re.findall(regx, url, re.I)
+print(find)
+
+url = 'my phone is 123-456-567, 132-312, as-312132-312-2131321lk'
+regx = r'[0-9]+-?[0-9]+-[0-9]{0,}' # '[0-9]+-?[0-9]+-[0-9]*'
+find = re.findall(regx, url)
+print(find)
+
+url = 'colou, colour, color, coloara'
+regx = r'colo\w?r+\w?'
+find = re.findall(regx, url)
+print(find)
+
+url = '	匹配前面的子表达式零次或一次。例如，"do(es)?" 可以匹配 "do" 、 "does" 中的 "does" 、 "doxzy" 中的 "do" 。? 等价于 {0,1}。'
+regx = r'do[es]?\w*'
+find = re.findall(regx, url)
+print(find)
+
+url = '''
+<a target="_blank" href="http://www.79.com/vip/tbh/">
+<a target="_blank" href="http://www.79.com/brand/zlfccxc/index/">
+<a target="_blank" href="http://www.79.com/brand/zlfccxc/index">
+<a target="_blank" href="http://www.79.com/vip/tbh">
+<a target="_blank" href="http://www.79.com/vip/tbh/sfdsf">
+'''
+
+# 匹配brand/xxxx/xxxx(/) 或者 vip/xxxx/
+regx1 = r'%s/brand/[a-z]+/[a-z]+/?|%s/vip/[a-z]+/' % (href_prefix, href_prefix)
+# 匹配情况比上班regx1 多一种 vip/xxxx/xxxx(/)
+regx2 = r'%s/[brand|vip]+/[a-z][+/[a-z]+]?' % (href_prefix)
+find1 = re.findall(regx1, url)
+find2 = re.findall(regx2, url)
+print(find1)
+print(find2)
+
+
+str = "Is is the cost of of gasoline going up up";
+patt1 = r'\b([a-z]+) \1\b'
+print(re.findall(patt1, str))

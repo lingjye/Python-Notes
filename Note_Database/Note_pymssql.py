@@ -18,10 +18,10 @@ pip install pymmsql
 import pymssql
 from pymssql import Cursor
 
-SERVER_IP = 'server_ip'
-UID = 'uid'
-PWD = 'pwd'
-DB_NAME = 'dbname'
+SERVER_IP = '' #'server_ip'
+UID = '' #'uid'
+PWD =  '' #'pwd'
+DB_NAME = '' #'dbname'
 # 连接数据库
 db_client = pymssql.connect(host=SERVER_IP, user=UID, password=PWD, database=DB_NAME)
 db_cursor: Cursor = db_client.cursor()
@@ -37,15 +37,23 @@ def query():
 # 执行存储过程
 def excute():
 	# db_cursor.callproc('SP_V1_Wawtch_ZYL_UpdateReportHashCodeItem')
-	db_cursor.execute('exec SP_V1_Wawtch_ZYL_UpdateReportHashCodeItem')
+	# db_cursor.execute('exec SP_V1_Wawtch_ZYL_UpdateReportHashCodeItem')
 	# db_cursor.execute(f"exec 存储过程名称 @参数1='xxx',@参数2='xxx',@参数3='xxx',@参数4='xxx'")
 	# 注：变量前面要加 @，要是调用存储过程无需传参可忽略；
 	# pymssql 2.0 以上可通过cursor.callproc方法调用存储过程cursor.callproc('存储过程', '参数元组')
 	# 需使用cursor.nextset()
 	# 才能得到结果集
+	res = db_cursor.callproc('SP_V1_Wawtch_ZYL_UpdateReportHashCodeItem')
+	print(res)
 
 	result = db_cursor.nextset() # 得到结果集
 	print(result)
+
+	result = db_cursor.fetchall()
+	print(result)
+
+	for row in db_cursor:
+		print(row)
 
 query()
 excute()

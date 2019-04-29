@@ -5,11 +5,16 @@
 # Created by txooo on 2018/11/19
 # Copyright © 2018 txooo. All rights reserved.
 
+import re
 # 分割
 s1 = 'adnm|sdjka|sa|123'
 s2 = 'wqewq'
 print(s1.split('|'))
 print(s2.split('|'))
+
+# 通过字符集分割
+r1 = re.split('[a|s]', s1)
+print(r1)
 
 request_url = 'https://www.baidu.com/'
 
@@ -30,3 +35,4 @@ s4 = 'http://sfdasf/'
 print(s4)
 print(s4.strip('/'))
 print(s4)
+
