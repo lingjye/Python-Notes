@@ -1,17 +1,17 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 # encoding: utf-8
 # product.py
 # product
 # Created by txooo on 2018/11/19
 # Copyright © 2018 txooo. All rights reserved.
 
-'''
+"""
 Description
 
 Please run cmdline :
 pip install lxml
 
-'''
+"""
 
 
 from lxml import html
@@ -184,7 +184,7 @@ html_str = """
 				</ul>
 """
 
-xpath_str = '//ul'
+xpath_str = "//ul"
 xpath_str_1 = 'li[@class="xmxq_SPX_xmbq"][position()=2]/span/a/text()'
 
 
@@ -199,3 +199,5 @@ print(res1, type(res1))
 # res1 = str(res1).split('：')
 # print(res1)
 # print(res2)
+for fds in str:
+    print()
