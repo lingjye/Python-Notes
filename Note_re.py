@@ -102,7 +102,24 @@ find2 = re.findall(regx2, url)
 print(find1)
 print(find2)
 
-
-str = "Is is the cost of of gasoline going up up";
+# 寻找出现两次及以上的单词
+str = "Is is the cost of of gasoline going up up up";
 patt1 = r'\b([a-z]+) \1\b'
-print(re.findall(patt1, str))
+print(re.findall(patt1, str, re.I))
+
+url = '''
+<a target="_blank" href="http://www.79.com/brand/zlfccxc/index.htm">
+<a target="_blank" href="http://www.79.com/brand/zlfccxc/index.html">
+<a target="_blank" href="http://www.79.com/brand/zlfccxc/123123.htm?index=1">
+<a target="_blank" href="http://www.79.com/dsad/brand/id/123123.html?index=1">
+'''
+
+href_prefix = 'http://www.79.com'
+
+href_regx = r'%s/[a-z]+/[a-z]+/\w+.html?' % (href_prefix)
+find1 = re.findall(href_regx, url)
+print(find1)
+
+href_regx = r'%s/[a-z]+/brand/id/\d+.html?' % (href_prefix)
+find1 = re.findall(href_regx, url)
+print(find1)

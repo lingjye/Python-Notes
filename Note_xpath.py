@@ -199,5 +199,54 @@ print(res1, type(res1))
 # res1 = str(res1).split('：')
 # print(res1)
 # print(res2)
-for fds in str:
-    print()
+
+# 打印每一个字符
+# for fds in xpath_str:
+#     print(fds)
+
+
+html_str = """
+<ul data-qhtml="true" class="data-list sty2 sp">
+         <li data-qhtml="true" class="active"> 
+            <a data-qhtml="true" href="/web/qswd/index.htm?id=684476&amp;args=79.1996.799.3631.0.204279.15532.3....0&amp;Sid=148536" title=""> 
+                <i data-qhtml="true">1</i> 
+                <span data-qhtml="true">3-5万</span>
+                陕西美食 四季客满 回头客多
+            </a>
+        </li> 
+        <li data-qhtml="true" class="active"> 
+            <a data-qhtml="true" href="/web/tdunclexc/index.htm?id=619702&amp;args=79.1996.799.3631.0.186421.14504.3....0&amp;Sid=148536" title="">
+                <i data-qhtml="true">2</i> 
+                <span data-qhtml="true">1-3万</span>
+                七彩土豆 无大厨 轻松立店
+            </a>
+        </li> 
+</ul>
+"""
+
+etree_item = html.etree.HTML(html_str)
+res = etree_item.xpath("//ul/li")
+for item in res:
+    res = item.xpath("a/text()")
+    print(res)
+
+
+html_str = """
+<div>a 
+    <p>b</p>
+    <p>c</p>
+    d
+</div>
+"""
+
+res1 = html.etree.HTML(html_str)
+res = res1.xpath("//div/text()")
+print(res)
+res = res1.xpath("normalize-space(//div)")
+# res = res1.xpath("normalize-space(.)")
+print(res, type(res))
+# text()返回节点集, normalize-space会失败   如果节点集只有一个元素，它将自动转换为字符串
+res = res1.xpath("normalize-space(//div/text())")
+print(res, type(res))
+
+

@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 # encoding: utf-8
 # product.py
 # product
@@ -12,6 +12,14 @@ list2.append(list1)
 print(list2)
 
 # 追加一个数组中所有元素到本数组
-x=[1,2,3]
-x.extend([4,5])
+x = [1, 2, 3]
+x.extend([4, 5])
 print(x)
+
+# 将数组转化为字符串
+list1 = ["a", "b", "c"]
+print("".join(list1))
+# 将字符串转化为数组
+str = "abc"
+list1 = [x for x in str]
+print(list1)
