@@ -36,3 +36,7 @@ print(s4)
 print(s4.strip('/'))
 print(s4)
 
+bstr = b'www'
+test_str = b'www.baidu.com'
+print(test_str.find(bstr) != -1)
+

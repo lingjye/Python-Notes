@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 # encoding: utf-8
 # product.py
 # product
@@ -50,4 +50,16 @@ d= difflib.HtmlDiff()
 q=d.make_file(tex1_lines,tex2_lines)
 
 with open('diff.html', 'w') as f:
-	f.write(q)
+    f.write(q)
+
+# 输出相似度
+
+
+def string_similar(s1, s2):
+    return difflib.SequenceMatcher(None, s1, s2).ratio()
+similar = string_similar('你好', '你好啊')
+similar1 = string_similar('a', 'a')
+similar2 = string_similar('a', 'abc')
+similar3 = string_similar('ae', 'abcd')
+
+print('相似度:', similar, similar1, similar2, similar3)
