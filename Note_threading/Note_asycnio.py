@@ -144,6 +144,9 @@
 # 解决协程IO阻塞
 import asyncio
 import time, threading
+from multiprocessing.dummy import Pool
+
+async_pool = Pool(200) # 控制200个并发
 
 #需要执行的耗时异步任务
 async def func(num):
@@ -161,15 +164,23 @@ async def request(id, q):
     while not q.empty():
         i = await q.get()
         # print(i, id)
-        await loop(i)
-        # await start_request(i)
+        try:
+            loop(i)
+        except asyncio.TimeoutError as e:
+            print('错误', e)
 
-async def loop(i):
+def loop(i):
     coroutine1 = start_request(i)
 
     new_loop = asyncio.new_event_loop()  # 在当前线程下创建时间循环，（未启用），在start_loop里面启动它
-    t = threading.Thread(target=start_loop, args=(new_loop, coroutine1))  # 通过当前线程开启新的线程去启动事件循环
-    t.start()
+    # t = threading.Thread(target=start_loop, args=(new_loop, coroutine1))  # 通过当前线程开启新的线程去启动事件循环
+    # t.start()
+    # asyncio.set_event_loop(new_loop)
+    # new_loop.run_until_complete(asyncio.wait([coroutine1]))
+
+    result = async_pool.map_async(start_request, (new_loop, coroutine1))
+    result.wait()
+    async_pool.apply_async(start_loop, (new_loop, coroutine1))
 
     asyncio.run_coroutine_threadsafe(coroutine1, new_loop)  # 这几个是关键，代表在新线程中事件循环不断“游走”执行
 
@@ -180,6 +191,7 @@ async def start_request(i):
 #定义一个main函数
 def main():
     q = asyncio.Queue()
+
     [q.put_nowait(item) for item in range(1000)]
     loop = asyncio.get_event_loop()
     tasks = [request(task_id, q, ) for task_id in range(10)]
