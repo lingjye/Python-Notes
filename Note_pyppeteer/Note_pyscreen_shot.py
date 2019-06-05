@@ -25,6 +25,7 @@ class ASyncScreenShot:
 
     async def run(self):
         print('截图', self.save_path, self.url)
+        # lanch(executablePath='your chrome path') 指定chrome路径
         browser = await launch()
         try:
             page = await browser.newPage()
