@@ -45,6 +45,7 @@ class ASyncScreenShot:
 
         await browser.close()
 
+    # 协程 使用async with ASyncScreenShot() as shot 时必须实现的方法
     async def __aenter__(self):
         return self
 

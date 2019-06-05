@@ -40,3 +40,6 @@ bstr = b'www'
 test_str = b'www.baidu.com'
 print(test_str.find(bstr) != -1)
 
+
+url = 'http://sjh.baidu.com'
+print(url.startswith('http://sjh.baidu.com'))
