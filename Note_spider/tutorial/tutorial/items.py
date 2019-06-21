@@ -8,7 +8,11 @@
 import scrapy
 
 
-class NoteScrapyItem(scrapy.Item):
+class TutorialItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    title = scrapy.Field()
+    author = scrapy.Field()
+    img = scrapy.Field()
+    url = scrapy.Field()
+

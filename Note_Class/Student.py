@@ -12,14 +12,14 @@
 
 class Student(object):
 
-	count = 0
-	number = 0
+	count = 10
+	number = 10
 
 	def __init__(self):
-		self.name = 'Michael'
+		# self.name = 'Michael'
 		self.count += 1
 		self.__age = 18
-		Student.number += 2
+		# Student.number += 2
 
 	def study(self):
 		print('Study')

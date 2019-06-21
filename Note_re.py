@@ -123,3 +123,13 @@ print(find1)
 href_regx = r'%s/[a-z]+/brand/id/\d+.html?' % (href_prefix)
 find1 = re.findall(href_regx, url)
 print(find1)
+
+url = 'http://m.jmw.com.cn/xm6783165/'
+href_regx = r'http://m.jmw.com.cn/[a-z]{2}\d+/'
+find1 = re.findall(href_regx, url)
+print(find1)
+
+url = 'http://m.jmw.com.cn/xm/sdadsa/sdasdsa/, http://m.jmw.com.cn/xm/, http://m.jmw.com.cn/13/13/, http://m.jmw.com.cn/xm/sda/'
+href_regx = r"http://m.jmw.com.cn/[a-z]+/?[a-z]+?/"
+find1 = re.findall(href_regx, url)
+print(find1)

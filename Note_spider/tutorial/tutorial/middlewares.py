@@ -7,12 +7,13 @@
 
 from scrapy import signals
 
+import random
+import time
 
-class NoteScrapySpiderMiddleware(object):
+class TutorialSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
-
     @classmethod
     def from_crawler(cls, crawler):
         # This method is used by Scrapy to create your spiders.
@@ -56,15 +57,18 @@ class NoteScrapySpiderMiddleware(object):
         spider.logger.info('Spider opened: %s' % spider.name)
 
 
-class NoteScrapyDownloaderMiddleware(object):
+class TutorialDownloaderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
 
+    def __init__(self, user_agent):
+        self.user_agent = user_agent
+
     @classmethod
     def from_crawler(cls, crawler):
         # This method is used by Scrapy to create your spiders.
-        s = cls()
+        s = cls(user_agent=crawler.settings.get("USER_AGENTS_LIST"))
         crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
         return s
 
@@ -78,7 +82,19 @@ class NoteScrapyDownloaderMiddleware(object):
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        return None
+        agent = random.choice(self.user_agent)
+        '''
+        参考 https://blog.csdn.net/stupid56862/article/details/86654546
+		request.headers.setdefault() 方法中 . setdefault 方法意味着 :
+		如果键不存在于字典中，将会添加键并将值设为默认值。如果存在,则不添加 。
+		可参考 文档(https://www.runoob.com/python/att-dictionary-setdefault.html)
+		因为系统的 UserAgentMiddleware 已经添加了 User-Agent ,所以我们这里添加失败
+		'''
+        request.headers["User-Agent"] = agent
+        deley = 1
+        # 这里的延时 等于 settings 中的延时 + delay
+        time.sleep(deley)
+        # return None
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
